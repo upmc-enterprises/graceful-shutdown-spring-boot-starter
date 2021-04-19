@@ -1,0 +1,119 @@
+plugins {
+  id 'com.diffplug.spotless' version '5.12.1'
+  id 'maven-publish'
+  id 'signing'
+}
+
+subprojects {
+  group = 'io.github.upmc-enterprises'
+  apply plugin: 'java'
+  apply plugin: 'maven-publish'
+  apply plugin: 'signing'
+
+  repositories {
+    mavenCentral()
+  }
+
+  sourceCompatibility = '1.8'
+  version '0.0.1'
+
+  ext['spring-boot.version'] = '2.5.2'
+
+  java {
+    withJavadocJar()
+    withSourcesJar()
+  }
+
+  signing {
+    def signingKeyProperty = findProperty('signingKey')
+    def signingKeyPassword = findProperty('signingPassword')
+
+    if(signingKeyProperty && signingKeyPassword) {
+      def signingKey = new String(signingKeyProperty.decodeBase64())
+
+      def extension = project.extensions.create('SigningExtension', SigningExtension)
+      extension.useInMemoryPgpKeys(signingKey, signingPassword)
+
+      sign publishing.publications
+    } else {
+      logger.quiet('Cannot find signingKey and/or signingPassword. Publications will not be signed.')
+    }
+  }
+
+  publishing {
+    repositories {
+      maven {
+        if(findProperty('CI')) {
+          def releasesRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/releases'
+          def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+          url = project.hasProperty('release') ? releasesRepoUrl : snapshotsRepoUrl
+          credentials {
+            username = findProperty('ossrhUsername')
+            password = findProperty('ossrhPassword')
+          }
+        } else {
+          url = project.hasProperty('release') ? layout.buildDirectory.dir('repos/releases') : layout.buildDirectory.dir('repos/snapshots')
+        }
+        logger.quiet("Publishing artifacts to {}", getUrl())
+      }
+    }
+    publications {
+      mavenJava(MavenPublication) {
+        from components.java
+        versionMapping {
+          usage('java-api') {
+            fromResolutionOf('runtimeClasspath')
+          }
+          usage('java-runtime') {
+            fromResolutionResult()
+          }
+        }
+        afterEvaluate {
+          artifactId = archivesBaseName
+          version = project.hasProperty('release') ? project.version : "${project.version}-SNAPSHOT"
+        }
+        pom {
+          name = 'UPMC Enterprises Graceful Shutdown Spring Boot Starter'
+          description = "A Spring Boot starter that enables Spring's graceful shutdown support and supplies actuator endpoints that can be used as a preStop hook for Kubernetes."
+          url = 'https://github.com/upmc-enterprises/graceful-shutdown-spring-boot-starter'
+          licenses {
+            license {
+              name = 'MIT License'
+              url = 'http://www.opensource.org/licenses/mit-license.php'
+            }
+          }
+          scm {
+            url = 'https://github.com/upmc-enterprises/graceful-shutdown-spring-boot-starter'
+          }
+          developers {
+            developer {
+              name = 'Bill Koch'
+              email = 'kochwm@upmc.edu'
+              organization = 'UPMC Enterprises'
+              organizationUrl = 'https://enterprises.upmc.com/'
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+spotless {
+  java {
+    target "**/*.java"
+    googleJavaFormat()
+  }
+  groovyGradle {
+    target '**/*.gradle'
+    greclipse().configFile("${project.rootDir}/greclipse.properties")
+    trimTrailingWhitespace()
+    indentWithSpaces(2)
+    endWithNewline()
+  }
+  freshmark {
+    target '**/*.md'
+    indentWithSpaces(2)
+    endWithNewline()
+  }
+}

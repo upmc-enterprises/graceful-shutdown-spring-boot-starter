@@ -1,0 +1,3 @@
+server.shutdown: graceful
+spring.lifecycle.timeout-per-shutdown-phase: 5m
+upmc-enterprises.graceful-shutdown.webmvc.async-timeout: 5m
