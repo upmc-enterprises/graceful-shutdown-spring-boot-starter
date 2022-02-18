@@ -26,13 +26,13 @@ A number of organizations are leveraging [distroless images](https://github.com/
 <dependency>
   <groupId>io.github.upmc-enterprises</groupId>
   <artifactId>upmc-enterprises-graceful-shutdown-spring-boot-starter</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
 </dependency>
 ```
 
 ### Gradle
 ```groovy
-implementation 'io.github.upmc-enterprises:upmc-enterprises-graceful-shutdown-spring-boot-starter:0.0.1-SNAPSHOT'
+implementation 'io.github.upmc-enterprises:upmc-enterprises-graceful-shutdown-spring-boot-starter:0.0.1'
 ```
 
 ### Kubernetes Configuration
