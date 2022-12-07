@@ -15,11 +15,11 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-    - name: Set up JDK 8
-      uses: actions/setup-java@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
       with:
-        java-version: '8'
-        distribution: 'adopt'
+        java-version: '17'
+        distribution: 'temurin'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
@@ -38,11 +38,11 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-    - name: Set up JDK 8
-      uses: actions/setup-java@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
       with:
-        java-version: '8'
-        distribution: 'adopt'
+        java-version: '17'
+        distribution: 'temurin'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
@@ -61,11 +61,11 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-    - name: Set up JDK 8
-      uses: actions/setup-java@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
       with:
-        java-version: '8'
-        distribution: 'adopt'
+        java-version: '17'
+        distribution: 'temurin'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
@@ -84,11 +84,11 @@ jobs:
          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
          restore-keys: |
            ${{ runner.os }}-gradle-
-     - name: Set up JDK 8
-       uses: actions/setup-java@v2
+     - name: Set up JDK 17
+       uses: actions/setup-java@v3
        with:
-         java-version: '8'
-         distribution: 'adopt'
+         java-version: '17'
+         distribution: 'temurin'
      - name: Grant execute permission for gradlew
        run: chmod +x gradlew
      - name: Publish Release

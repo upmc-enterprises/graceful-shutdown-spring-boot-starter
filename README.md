@@ -26,13 +26,13 @@ A number of organizations are leveraging [distroless images](https://github.com/
 <dependency>
   <groupId>io.github.upmc-enterprises</groupId>
   <artifactId>upmc-enterprises-graceful-shutdown-spring-boot-starter</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 ### Gradle
 ```groovy
-implementation 'io.github.upmc-enterprises:upmc-enterprises-graceful-shutdown-spring-boot-starter:1.0.0'
+implementation 'io.github.upmc-enterprises:upmc-enterprises-graceful-shutdown-spring-boot-starter:2.0.0'
 ```
 
 ### Kubernetes Configuration
@@ -69,11 +69,14 @@ spec:
 ```
 
 ## :white_check_mark: Supported Spring Boot Versions
-| Spring Boot Version | Supported |
-| --- | --- |
-| 2.5.x | :white_check_mark: |
-| 2.4.x | :white_check_mark: |
-| 2.3.x | :white_check_mark: |
+| Spring Boot Version                   | Supported          | Starter Version |
+|---------------------------------------|--------------------|-----------------|
+| 3.0.x (including Graal native images) | :white_check_mark: | 2.x             |
+| 2.7.x                                 | :white_check_mark: | 1.x             |
+| 2.6.x                                 | :white_check_mark: | 1.x             |
+| 2.5.x                                 | :white_check_mark: | 1.x             |
+| 2.4.x                                 | :white_check_mark: | 1.x             |
+| 2.3.x                                 | :white_check_mark: | 1.x             |
 
 ## :boom: Gotchas
 1. The kubelet cannot currently handle self-signed certificates for the preStop hook (unlike startup, liveness, and readiness probes). As such, all of your application's actuator endpoints will need to be available over `HTTP`. [See this GitHub issue](https://github.com/kubernetes/kubernetes/pull/86139).
