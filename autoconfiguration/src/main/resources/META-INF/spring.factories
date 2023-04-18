@@ -1,5 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.upmcenterprises.spring.starters.gracefulshutdown.GracefulShutdownAutoConfiguration
-
 org.springframework.boot.env.EnvironmentPostProcessor=\
   io.github.upmcenterprises.spring.starters.gracefulshutdown.UpmcEnterprisesGracefulShutdownPostProcessor

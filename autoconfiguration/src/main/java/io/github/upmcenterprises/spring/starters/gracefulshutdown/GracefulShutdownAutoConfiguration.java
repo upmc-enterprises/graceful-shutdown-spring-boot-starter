@@ -3,21 +3,21 @@ package io.github.upmcenterprises.spring.starters.gracefulshutdown;
 import static org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type.REACTIVE;
 import static org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type.SERVLET;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class GracefulShutdownAutoConfiguration {
 
   @ConditionalOnWebApplication(type = SERVLET)
   @ConditionalOnClass(org.springframework.web.servlet.DispatcherServlet.class)
   @EnableConfigurationProperties(UpmcGracefulShutdownProperties.class)
-  @Configuration(proxyBeanMethods = false)
+  @AutoConfiguration
   static class WebMvcGracefulShutdownConfiguration {
 
     @Bean
@@ -38,7 +38,7 @@ public class GracefulShutdownAutoConfiguration {
 
   @ConditionalOnWebApplication(type = REACTIVE)
   @ConditionalOnClass(org.springframework.web.reactive.config.WebFluxConfigurer.class)
-  @Configuration(proxyBeanMethods = false)
+  @AutoConfiguration
   static class ReactiveGracefulShutdownConfiguration {
     @Bean
     WebFluxPreStopHookEndpoint reactiveGracefulShutdownEndpoint() {
