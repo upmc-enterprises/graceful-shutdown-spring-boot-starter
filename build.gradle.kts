@@ -85,7 +85,7 @@ subprojects {
           }
         }
         afterEvaluate {
-          artifactId = project.base.archivesName.get()
+          artifactId = "upmc-enterprises-graceful-shutdown-spring-boot-${project.base.archivesName.get()}"
           version = if (project.hasProperty("release")) version else "$version-SNAPSHOT"
         }
         pom {

@@ -8,7 +8,6 @@ dependencyManagement {
   }
 }
 
-val archivesBaseName = "upmc-enterprises-graceful-shutdown-spring-boot-autoconfiguration"
 
 dependencies {
   compileOnly("org.springframework.boot:spring-boot-starter-actuator")
