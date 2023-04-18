@@ -1,5 +1,3 @@
-val archivesBaseName = "upmc-enterprises-graceful-shutdown-spring-boot-starter"
-
 dependencies {
   implementation(project(":autoconfiguration"))
 }
